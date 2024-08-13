@@ -67,7 +67,7 @@ import cartsDB from "./src/routes/DB/carrito.js";
 import usersDB from "./src/routes/DB/usuarios.js";
 import mail from "./src/routes/DB/mail.js";
 import clubDB from "./src/routes/DB/club.js";
-
+import TournamentDB from "./src/routes/DB/Tournament.js";
 
 
 // endpoints
@@ -76,7 +76,7 @@ server.use("/cartsDB", cartsDB);
 server.use("/userDB", usersDB);
 server.use("/mail", mail);
 server.use("/clubDB", clubDB);
-
+server.use("/TournamentDB", TournamentDB);
 
 // set/get/delete cookies
 

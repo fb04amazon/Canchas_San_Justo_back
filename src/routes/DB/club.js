@@ -55,7 +55,7 @@ clubDB.post("/:typeFile/:id", uploader.single("MyFile") ,async(req,res) => {
 
     let club = await modelClubs.findOne({owner: id});
 
-    console.log(club);
+    console.log(file);
 
     club.profilePicture = file;
 
@@ -88,6 +88,15 @@ clubDB.get("/getClub", authToken("jwt"), async(req,res) => {
 
 });
 
+clubDB.get("/getClubs", async(req,res) => {
+
+    let clubs = await modelClubs.find();
+
+    console.log(clubs);
+
+    res.status(200).json(clubs)
+})
+
 clubDB.put("/updateClub/:clubId/:courtId", async(req,res) => {
 
     let courtId = req.params.courtId;
@@ -110,6 +119,19 @@ clubDB.get("/sendFiles/:file/:image", authToken("jwt"), (req,res) => {
     let typeFile = req.params.file;
     let image = req.params.image;
     let id = req.user.id;
+
+    console.log(id)
+    console.log(_Dirname + "/src/public/clubs/"+ id + "/" + typeFile + "/" + image)
+
+    res.status(200).sendFile( _Dirname + "/src/public/clubs/"+ id + "/" + typeFile + "/" + image );
+
+});
+
+clubDB.get("/sendFiles/:id/:file/:image", authToken("jwt"), (req,res) => {
+
+    let typeFile = req.params.file;
+    let image = req.params.image;
+    let id = req.params.id;
 
     console.log(id)
     console.log(_Dirname + "/src/public/clubs/"+ id + "/" + typeFile + "/" + image)

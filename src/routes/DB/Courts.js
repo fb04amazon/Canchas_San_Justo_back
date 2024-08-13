@@ -39,6 +39,15 @@ CourtsDB.post( "/Post_dbproduct/:clubId", TypeUserCheck(), async (req, res) => {
 
 });
 
+CourtsDB.get("/Get_dbproduct", authToken('jwt'), async(req,res) => {
+
+    const find = await modelCourts.find();
+
+    console.log(find);
+
+    res.status(200).json(find);
+})
+
 CourtsDB.get("/Get_dbproduct/:clubId/:courtTitle", authToken('jwt'), async (req,res) => {
 
     const find = await modelCourts.find({club_owner: req.params.clubId}).lean();
@@ -148,9 +157,24 @@ CourtsDB.post("/courtsMedia/:court_title/:typeFile" , TypeUserCheck() ,uploader.
 
 });
 
-// GET para enviar archivos de fotos de productos (Thumbnail)
 
-CourtsDB.get("/sendFiles/:court/:type/:media", authToken("jwt"), (req,res) => {
+// GET para enviar archivos de fotos de productos (Thumbnail), para traer todas las fotos
+
+CourtsDB.get("/sendFiles/:owners/:court/:type/:media", async(req,res) => {
+
+    let owners = req.params.owners;
+    let typeFile = req.params.type;
+    let media = req.params.media;
+    let court = req.params.court;
+
+    res.status(200).sendFile( _Dirname + "/src/public/clubs/" + owners + "/courts/" + court + "/" + typeFile + "/" + media );
+
+});
+
+
+// GET para enviar archivos de fotos de productos (Thumbnail), para owners
+
+CourtsDB.get("/sendFile/:court/:type/:media", authToken("jwt"), (req,res) => {
 
     let user = req.user;
     let typeFile = req.params.type;

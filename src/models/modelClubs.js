@@ -4,12 +4,6 @@ const modelClubs = new mongoose.Schema({
     owner: {type: mongoose.Schema.Types.ObjectId, ref:"modelousuarios"},
     name: {type: String, require: true},
     profilePicture: {type: String},
-    news: {type: [{type: mongoose.Schema({
-            title: {type: String, require:true},
-            text: {type: String, require:true},
-            date: {type: Date, require:true},
-            tag: {type: String, require:true}
-    })}]},
     courts: {type: [{type: mongoose.Schema({
         court: {type: mongoose.Schema.Types.ObjectId, ref:"modeloCanchas"}
     })}]},
